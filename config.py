@@ -4,7 +4,7 @@ import os
 DB_URI = os.environ.get("DB_URI", "mongodb+srv://sonu55:sonu55@cluster0.vqztrvk.mongodb.net/?retryWrites=true&w=majority")
 DB_NAME = os.environ.get("DB_NAME", "lumffy")
 
-MUST_JOIN = ["username 1", "username 2", "username 3"]
+MUST_JOIN = ["manga_edge", "encode_status", "daily_life_of_immortal_king_eng"]
 
 # Admins
 try:
