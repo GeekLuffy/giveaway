@@ -65,7 +65,7 @@ Between December 27th and 28th, our bots will randomly select 150 participants. 
 Unleash your inner anime warrior! Stay tuned. 🚀🔥 #MegaGiveaway #AnimeAdventures""")
 
     try:
-        await app.send_message(user_id, CAPTION)
+        await app.send_message(user_id, CAPTION, supports_streaming=True)
     except:
         return
 
