@@ -1,7 +1,7 @@
 import os
 
 # Database
-DB_URI = os.environ.get("DB_URI", "mongodb+srv://sonu55:sonu55@cluster0.vqztrvk.mongodb.net/?retryWrites=true&w=majority")
+DB_URI = os.environ.get("DB_URI", "mongodb+srv://owais:glassone1@cluster0.cx7psr5.mongodb.net/?retryWrites=true&w=majority")
 DB_NAME = os.environ.get("DB_NAME", "lumffy")
 
 MUST_JOIN = ["Anime_Edge", "Anime_Supernova", "tsukimichi_moonlit_fantasy_2"]
