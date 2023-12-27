@@ -55,17 +55,17 @@ async def start(_, message: Message):
         await ok(user_id, username, first_name, last_name)
 
     # VIDEO_URL = 'https://graph.org/file/79ba8843dfcfc869c826a.mp4'
-    CAPTION = """🤖 Mega Giveaway Bot Activation 🚀
+    CAPTION = ("""🤖 Mega Giveaway Bot Activation 🚀
 
 Welcome, anime aficionado! 🌟 You're officially part of the Mega Giveaway extravaganza. 🎉
 
 🌊 Next Steps: 
 Between December 27th and 28th, our bots will randomly select 150 participants. If you're chosen, watch your DMs on December 28th for exciting details! 📬✨
 
-Unleash your inner anime warrior! Stay tuned. 🚀🔥 #MegaGiveaway #AnimeAdventures"""
+Unleash your inner anime warrior! Stay tuned. 🚀🔥 #MegaGiveaway #AnimeAdventures""")
 
     try:
-        await app.send_message(chat_id=user_id, caption=CAPTION, supports_streaming=True)
+        await app.send_message(user_id, CAPTION)
     except:
         return
 
