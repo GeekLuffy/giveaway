@@ -1,15 +1,11 @@
-from pyrogram.types import Message
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, InputMediaVideo
 from pyrogram import filters
-from pymongo import MongoClient
-from AniPlay import app
-import asyncio
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.errors import UserNotParticipant, ChatWriteForbidden
-from config import ADMINS, DB_URI, DB_NAME, MUST_JOIN
-
-client = MongoClient(DB_URI)
-db = client[DB_NAME]
-user_collection = db["genvnano"]
+from pymongo import MongoClient
+import asyncio
+from AniPlay import app
+from config import ADMINS, MUST_JOIN
+from AniPlay.plugins.database.userdb import ok, user_collection
 
 async def validate_user(user_id, expected_id):
     return str(user_id) == expected_id
@@ -17,17 +13,17 @@ async def validate_user(user_id, expected_id):
 async def must_join_channel(message: Message):
     if MUST_JOIN:
         not_joined = []
-        for channel in MUST_JOIN:
+        for i, channel in enumerate(MUST_JOIN, start=1):
             try:
                 await app.get_chat_member(channel, message.from_user.id)
             except UserNotParticipant:
-                not_joined.append(channel)
+                not_joined.append((channel, i))
 
         if not_joined:
             buttons = []
-            for channel in not_joined:
+            for channel, join_number in not_joined:
                 link = "https://t.me/" + channel if channel.isalpha() else (await app.get_chat(channel)).invite_link
-                buttons.append([InlineKeyboardButton(f"Join {channel}", url=link)])
+                buttons.append([InlineKeyboardButton(f"Join {join_number}", url=link)])
 
             try:
                 await message.reply(
@@ -38,15 +34,6 @@ async def must_join_channel(message: Message):
             except ChatWriteForbidden:
                 pass
 
-async def ok(user_id, username, first_name, last_name):
-    user_data = {
-        "user_id": user_id,
-        "username": username,
-        "first_name": first_name,
-        "last_name": last_name,
-    }
-    user_collection.insert_one(user_data)
-
 @app.on_message(filters.incoming & filters.private, group=-1)
 async def must_join_channel_private(client, msg: Message):
     await must_join_channel(msg)
@@ -55,15 +42,30 @@ async def must_join_channel_private(client, msg: Message):
 async def start(_, message: Message):
     await must_join_channel(message)
 
-    await ok(
-        message.from_user.id,
-        message.from_user.username,
-        message.from_user.first_name,
-        message.from_user.last_name
-    )
+    user_id = message.from_user.id
+    username = message.from_user.username
+    first_name = message.from_user.first_name
+    last_name = message.from_user.last_name
+
+    existing_user = user_collection.find_one({"user_id": user_id})
+
+    if existing_user:
+        user_collection.update_one({"user_id": user_id}, {"$set": {"username": username}})
+    else:
+        await ok(user_id, username, first_name, last_name)
+
+    # VIDEO_URL = 'https://graph.org/file/79ba8843dfcfc869c826a.mp4'
+    CAPTION = """🤖 Mega Giveaway Bot Activation 🚀
+
+Welcome, anime aficionado! 🌟 You're officially part of the Mega Giveaway extravaganza. 🎉
+
+🌊 Next Steps: 
+Between December 27th and 28th, our bots will randomly select 150 participants. If you're chosen, watch your DMs on December 28th for exciting details! 📬✨
+
+Unleash your inner anime warrior! Stay tuned. 🚀🔥 #MegaGiveaway #AnimeAdventures"""
 
     try:
-        await message.reply_text('hmmm ok ab aage kya karna he???')
+        await app.send_message(chat_id=user_id, caption=CAPTION, supports_streaming=True)
     except:
         return
 
@@ -75,12 +77,7 @@ async def stats_command(_, message: Message):
     for i in range(3, 0, -1):
         await asyncio.sleep(1)
         await initial_message.edit_text(f"Getting user count... {i}")
-
-    await message.reply_sticker("CAACAgUAAx0CfMPc0gACBkRliZ6Xw5THI5Wx2lCEtTni-CYeFwACBAADwSQxMYnlHW4Ls8gQHgQ")
-
+        
     await asyncio.sleep(2)
-
-    await app.delete_messages(chat_id=message.chat.id, message_ids=[message.message_id])
-
     nano = user_collection.count_documents({})
     await message.reply_text(f"Total users 🫠: {nano}")
