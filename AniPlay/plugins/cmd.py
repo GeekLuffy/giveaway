@@ -166,6 +166,31 @@ async def give_points_command(_, message: Message):
     except Exception as e:
         await message.reply_text(f"Error updating points: {e}")
 
+# New command to deduct points from a user
+@app.on_message(filters.command('minuspoints'))
+async def deduct_points(_, message: Message):
+    # Check if the command has the required arguments
+    if len(message.command) < 3:
+        await message.reply_text("Usage: /minuspoints <user_id> <points>")
+        return
+    try:
+        # Extract user_id and points from the command
+        user_id_to_deduct = int(message.command[1])
+        points_to_deduct = int(message.command[2])
+    
+        # Deduct points from the user
+        update_user_points(user_id_to_deduct, -points_to_deduct)
+    
+        # Get the updated points for the user
+        updated_points = get_user_points(user_id_to_deduct)
+    
+        # Respond to the user
+        await message.reply_text(f"Points deducted! User {user_id_to_deduct} now has {updated_points} points.")
+     except ValueError:
+        await message.reply_text("Invalid user ID or points. Please use integers.")
+    except Exception as e:
+        await message.reply_text(f"Error updating points: {e}")
+
 # New command to show the top 50 referrers
 @app.on_message(filters.command('leaderboard'))
 async def show_leaderboard(_, message: Message):
