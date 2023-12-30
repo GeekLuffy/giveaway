@@ -167,7 +167,7 @@ async def give_points_command(_, message: Message):
         await message.reply_text(f"Error updating points: {e}")
 
 # New command to deduct points from a user
-@app.on_message(filters.command('minuspoints'))
+@app.on_message(filters.command('minuspoints') & filters.user(ADMINS))
 async def deduct_points(_, message: Message):
     # Check if the command has the required arguments
     if len(message.command) < 3:
