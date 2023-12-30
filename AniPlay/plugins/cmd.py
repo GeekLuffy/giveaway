@@ -186,7 +186,7 @@ async def deduct_points(_, message: Message):
     
         # Respond to the user
         await message.reply_text(f"Points deducted! User {user_id_to_deduct} now has {updated_points} points.")
-     except ValueError:
+    except ValueError:
         await message.reply_text("Invalid user ID or points. Please use integers.")
     except Exception as e:
         await message.reply_text(f"Error updating points: {e}")
