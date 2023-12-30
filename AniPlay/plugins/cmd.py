@@ -36,8 +36,12 @@ async def must_join_channel(message: Message):
                 buttons.append([InlineKeyboardButton(f"Join {join_number}", url=link)])
 
             # Add a "Try Again" button that restarts the bot
-            buttons.append(
-                [InlineKeyboardButton("Try Again", url=f"https://t.me/Super_GiveawayBot?start={message.command[1]}")])
+                        # Add a "Try Again" button that restarts the bot
+            if len(message.command) > 1:
+                buttons.append(
+                    [InlineKeyboardButton("Try Again", url=f"https://t.me/test_suckBot?start={message.command[1]}")])
+            else:
+                buttons.append([InlineKeyboardButton("Try Again", url="https://t.me/test_suckBot?start")])
 
             try:
                 await message.reply(
@@ -129,12 +133,12 @@ Unleash your inner anime warrior! Stay tuned. 🚀🔥 #MegaGiveaway #AnimeOcean
             except:
                 return
 
-#@app.on_message(filters.command('points'))
-#async def check_points(_, message: Message):
-#    user_id = message.from_user.id
-#    points = get_user_points(user_id)  # Remove 'await' here
+@app.on_message(filters.command('points'))
+async def check_points(_, message: Message):
+    user_id = message.from_user.id
+    points = get_user_points(user_id)  # Remove 'await' here
 
-#    await message.reply_text(f"Your Referral Points: {points}")
+    await message.reply_text(f"Your Referral Points: {points}")
 
 # New command to show the top 50 referrers
 @app.on_message(filters.command('leaderboard'))
