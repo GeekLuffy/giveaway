@@ -5,7 +5,7 @@ from pymongo import MongoClient
 import asyncio
 from AniPlay import app
 from config import ADMINS, MUST_JOIN
-from AniPlay.plugins.database.userdb import ok, user_collection, get_user_points, join_counts_collection, referral_cache
+from AniPlay.plugins.database.userdb import ok, user_collection, get_user_points, join_counts_collection, update_user_points
 
 
 async def validate_user(user_id, expected_id):
@@ -140,9 +140,37 @@ async def check_points(_, message: Message):
 
     await message.reply_text(f"Your Referral Points: {points}")
 
+# New command to give points to a user
+@app.on_message(filters.command('givepoints') & filters.user(ADMINS))
+async def give_points_command(_, message: Message):
+    # Check if the command has the correct number of arguments
+    if len(message.command) < 3:
+        await message.reply_text("Invalid command. Use /givepoints <user_id> <points>")
+        return
+
+    try:
+        # Extract user ID and points from the command
+        user_id = int(message.command[1])
+        points = int(message.command[2])
+
+        # Update user points
+        update_user_points(user_id, points)
+
+        # Get updated points for the user
+        updated_points = get_user_points(user_id)
+
+        # Reply with the updated points
+        await message.reply_text(f"Points successfully updated for user {user_id}. Updated Points: {updated_points}")
+    except ValueError:
+        await message.reply_text("Invalid user ID or points. Please use integers.")
+    except Exception as e:
+        await message.reply_text(f"Error updating points: {e}")
+
 # New command to show the top 50 referrers
 @app.on_message(filters.command('leaderboard'))
 async def show_leaderboard(_, message: Message):
+    initial_message = await message.reply_text("Fetching the top users from the leaderboard...")
+
     leaderboard_text = "Top 50 Referrers:\n\n"
 
     # Retrieve the top 50 referrers based on points
@@ -169,7 +197,7 @@ async def show_leaderboard(_, message: Message):
             leaderboard_text += f"{i}. User ID: [{user_id}]({profile_link}), Points: {points}\n"
 
     # Send the leaderboard to the user
-    await message.reply_text(leaderboard_text)
+    await initial_message.edit_text(leaderboard_text, disable_web_page_preview=True)
 
 @app.on_message(filters.command('stats') & filters.user(ADMINS))
 async def stats_command(_, message: Message):
