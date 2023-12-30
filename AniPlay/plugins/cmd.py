@@ -39,13 +39,13 @@ async def must_join_channel(message: Message):
                         # Add a "Try Again" button that restarts the bot
             if len(message.command) > 1:
                 buttons.append(
-                    [InlineKeyboardButton("Try Again", url=f"https://t.me/test_suckBot?start={message.command[1]}")])
+                    [InlineKeyboardButton("Try Again", url=f"https://t.me/Super_GiveawayBot?start={message.command[1]}")])
             else:
-                buttons.append([InlineKeyboardButton("Try Again", url="https://t.me/test_suckBot?start")])
+                buttons.append([InlineKeyboardButton("Try Again", url="https://t.me/Super_GiveawayBot?start")])
 
             try:
                 await message.reply(
-                    "You need to join the following channels to use the bot so Please join them to proceed.\nIf you have already joined, press the try again button below to continue:",
+                    "You need to join the following channels to use the bot so Please join them to proceed.\n\nIf you have already joined, press the try again button below to continue:",
                     reply_markup=InlineKeyboardMarkup(buttons)
                 )
                 await message.stop_propagation()
