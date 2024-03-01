@@ -16,7 +16,7 @@ async def validate_user(user_id, expected_id):
 @app.on_message(filters.command('refer'))
 async def generate_referral_link(_, message: Message):
     user_id = message.from_user.id
-    referral_link = f"https://t.me/Super_GiveawayBot?start={user_id}"
+    referral_link = f"https://t.me/Ace_Giveaway_Bot?start={user_id}"
 
     await message.reply_text(f"Your Referral Link:\n{referral_link}\n\nShare this link with your friends and get 1 point for each referral!")
 
@@ -39,9 +39,9 @@ async def must_join_channel(message: Message):
                         # Add a "Try Again" button that restarts the bot
             if len(message.command) > 1:
                 buttons.append(
-                    [InlineKeyboardButton("Try Again", url=f"https://t.me/Super_GiveawayBot?start={message.command[1]}")])
+                    [InlineKeyboardButton("Try Again", url=f"https://t.me/Ace_Giveaway_Bot?start={message.command[1]}")])
             else:
-                buttons.append([InlineKeyboardButton("Try Again", url="https://t.me/Super_GiveawayBot?start")])
+                buttons.append([InlineKeyboardButton("Try Again", url="https://t.me/Ace_Giveaway_Bot?start")])
 
             try:
                 await message.reply(
