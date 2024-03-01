@@ -71,20 +71,23 @@ async def start(_, message: Message):
 
     if existing_user:
         user_collection.update_one({"user_id": user_id}, {"$set": {"username": username}})
-        CAPTION = """🤖 Mega Giveaway Bot 🚀
+        CAPTION = """🤖 ACE Anime Giveaway Bot 🚀
 
-Welcome, anime aficionado! 🌟 You're officially part of the Mega Giveaway extravaganza. 🎉
+Attention, anime enthusiasts! 🌟 Welcome to the ACE Anime Giveaway extravaganza. 🎉
 
-🌊 Round 1: 
+🌊 Round 1 - ACE Anime Edition:
 🔗 Referral Game Plan:
-1. Start the Mentioned Bot.
-2. Type /refer to get your refferal link.
-3. Share the link with friends, fellow anime fans, and others.
-4. When someone clicks on your referral link and follows the specified action (like joining a group or channel), you may receive referral point.
+1. Activate the ACE Anime Giveaway Bot.
+2. Type /refer to grab your unique referral link.
+3. Share your link with friends, fellow anime lovers, and more.
+4. When someone clicks your link and completes the specified action (like joining a group or channel), you could earn referral points.
 
 📊 Leaderboard Check:
-- Use /leaderboard to view your position in the table; gather more people if your name is not there, secure your position in top 50 spot and make your way to Round 2.
-Unleash your inner anime warrior! Stay tuned. 🚀🔥 #MegaGiveaway #AnimeOcean #AnimeEdge #AnimeSupernova #logoplanet"""
+- Deploy /leaderboard to monitor your position; recruit more allies if your name is absent. Secure a spot in the top 100 to advance to Round 2.
+
+Unleash your inner anime warrior! Stay tuned for more adventures. 🚀
+
+POWERED BY - @ACE_Emperor"""
         try:
             await message.reply_text(CAPTION)
         except:
