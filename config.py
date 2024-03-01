@@ -2,9 +2,9 @@ import os
 
 # Database
 DB_URI = os.environ.get("DB_URI", "mongodb+srv://owais:glassone1@cluster0.cx7psr5.mongodb.net/?retryWrites=true&w=majority")
-DB_NAME = os.environ.get("DB_NAME", "lumffy")
+DB_NAME = os.environ.get("DB_NAME", "ace")
 
-MUST_JOIN = ["logo_planet", "solo_leveling_dual", "chained_soldier_ao"]
+MUST_JOIN = ["Ace_animes", "ACE_Ongoing", "cosmosanime"]
 
 # Admins
 try:
@@ -15,4 +15,4 @@ except ValueError:
 API_ID = '19099900'
 API_HASH = '2b445de78e5baf012a0793e60bd4fbf5'
 
-TOKEN = '6420934896:AAH7VZB0ZSoewO_hBwN4v2SE3xPG7A1b79Y'
+TOKEN = '6904484169:AAFlMYOzkreyc7n04elocjRMEQTTRpneozM'
