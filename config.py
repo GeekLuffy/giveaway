@@ -8,7 +8,7 @@ MUST_JOIN = ["Ace_animes", "ACE_Ongoing", "cosmosanime"]
 
 # Admins
 try:
-    ADMINS = [int(x) for x in os.environ.get("ADMINS", "1608353423 1350488685 5507193256").split()]
+    ADMINS = [int(x) for x in os.environ.get("ADMINS", "1374857816 1350488685").split()]
 except ValueError:
     raise Exception("Your Admins list does not contain valid integers.")
 
