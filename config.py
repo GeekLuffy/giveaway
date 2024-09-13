@@ -1,10 +1,10 @@
 import os
 
 # Database
-DB_URI = os.environ.get("DB_URI", "mongodb+srv://owais:glassone1@cluster0.cx7psr5.mongodb.net/?retryWrites=true&w=majority")
+DB_URI = os.environ.get("DB_URI", "")
 DB_NAME = os.environ.get("DB_NAME", "ace")
 
-MUST_JOIN = ["Ace_animes", "ACE_Ongoing", "cosmosanime"]
+MUST_JOIN = ["Anime_Edge", "Anime_Edge_Ongoing"]
 
 # Admins
 try:
@@ -15,4 +15,4 @@ except ValueError:
 API_ID = '19099900'
 API_HASH = '2b445de78e5baf012a0793e60bd4fbf5'
 
-TOKEN = '6904484169:AAFlMYOzkreyc7n04elocjRMEQTTRpneozM'
+TOKEN = ''
