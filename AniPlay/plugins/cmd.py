@@ -12,11 +12,12 @@ async def validate_user(user_id, expected_id):
     return str(user_id) == expected_id
 
 
+BOTUSERNAME = ""
 # New command to generate referral link
 @app.on_message(filters.command('refer'))
 async def generate_referral_link(_, message: Message):
     user_id = message.from_user.id
-    referral_link = f"https://t.me/Ace_Giveaway_Bot?start={user_id}"
+    referral_link = f"https://t.me/{BOTUSERNAME}?start={user_id}"
 
     await message.reply_text(f"Your Referral Link:\n{referral_link}\n\nShare this link with your friends and get 1 point for each referral!")
 
