@@ -12,7 +12,7 @@ try:
 except ValueError:
     raise Exception("Your Admins list does not contain valid integers.")
 
-API_ID = '19099900'
-API_HASH = '2b445de78e5baf012a0793e60bd4fbf5'
+API_ID = ''
+API_HASH = ''
 
 TOKEN = ''
